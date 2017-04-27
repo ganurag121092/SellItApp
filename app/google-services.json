@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "916109206376",
+    "firebase_url": "https://sellit-d226e.firebaseio.com",
+    "project_id": "sellit-d226e",
+    "storage_bucket": "sellit-d226e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916109206376:android:af63e99cee636fb2",
+        "android_client_info": {
+          "package_name": "buyerseller.cs646.sdsu.edu.sellit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916109206376-nijdiact8m6rh3hm1v9m4rvuhsov2ar2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "buyerseller.cs646.sdsu.edu.sellit",
+            "certificate_hash": "f5a9fcd86e3b29eb65940a4250eb74d527bd1dd7"
+          }
+        },
+        {
+          "client_id": "916109206376-443p5i2uanfcnmdn26tn4spavkmlujs0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzCdZUIsv5dBtohBqjhGJgouzyq0XYx6I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916109206376-443p5i2uanfcnmdn26tn4spavkmlujs0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
