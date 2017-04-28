@@ -69,6 +69,7 @@ public class CategoryActivity extends AppCompatActivity{
           @Override
           public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(CategoryActivity.this, "failed to bring the data" , Toast.LENGTH_LONG).show();
+
             }
         });
     }

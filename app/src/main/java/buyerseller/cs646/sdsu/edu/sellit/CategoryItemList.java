@@ -39,6 +39,7 @@ public class CategoryItemList extends AppCompatActivity {
         Bundle args=getIntent().getExtras();
 
         mSelectedItem=args.getString("SelectedItem");
+
         Log.d(TAG,mSelectedItem);
         // will go to the root according to the selected item and will display them to the
         // list/recycle view , then accrodingly to the selected item will fetech data from the sub item
@@ -53,6 +54,7 @@ public class CategoryItemList extends AppCompatActivity {
 
         if(mSelectedItem.equals("electronics"))
         {
+            Log.d(TAG,mSelectedItem);
             mDatabaseReference =FirebaseDatabase.getInstance().getReference().child("Electronics");
             getItems(mDatabaseReference);
         }
