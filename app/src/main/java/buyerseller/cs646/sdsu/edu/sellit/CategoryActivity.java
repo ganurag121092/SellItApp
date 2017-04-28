@@ -1,5 +1,6 @@
 package buyerseller.cs646.sdsu.edu.sellit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,6 +23,7 @@ import java.util.List;
 public class CategoryActivity extends AppCompatActivity{
 
     private static final String TAG = "CategoryActivity" ;
+    private static final String ConstantValue="Categories";
     private List<String> mCategoryList = new ArrayList<>();
     private ArrayAdapter<String> mArrayAdapter;
     private GridView mGridView;
@@ -34,24 +36,33 @@ public class CategoryActivity extends AppCompatActivity{
         // get list of categories from firebase
         getCategories();
      mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-                Toast.makeText(CategoryActivity.this, "Category selected !!" + position,Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> parent, View v,int position, long id)
+            {
+                Toast.makeText(CategoryActivity.this, "Category selected " + position,Toast.LENGTH_SHORT).show();
+                String mItemSelected =  parent.getItemAtPosition(position).toString();
+                Intent mIntent = new Intent(CategoryActivity.this,CategoryItemList.class);
+                mIntent.putExtra("SelectedItem", mItemSelected);
+                 startActivity(mIntent);
             }
         });
     }
 
+
+
+
+
     public void getCategories()
     {
-          FirebaseDatabase.getInstance().getReference().child("categories").addListenerForSingleValueEvent(new ValueEventListener() {
+          FirebaseDatabase.getInstance().getReference().child("Categories").addListenerForSingleValueEvent(new ValueEventListener() {
           @Override
           public void onDataChange(DataSnapshot dataSnapshot) {
            Iterator<DataSnapshot> dataSnapshots = dataSnapshot.getChildren().iterator();
               while (dataSnapshots.hasNext()) {
                   DataSnapshot dataSnapshotChild = dataSnapshots.next();
-                  String mCategoryName = dataSnapshotChild.child("name").getValue().toString();
+                  Log.d(TAG, dataSnapshotChild.getValue().toString());
+                  String mCategoryName = dataSnapshotChild.getValue().toString();
                   mCategoryList.add(mCategoryName);
-                  mArrayAdapter = new ArrayAdapter<String>(CategoryActivity.this, android.R.layout.simple_list_item_1, mCategoryList);
+                  mArrayAdapter = new ArrayAdapter<String>(CategoryActivity.this, R.layout.grid_item_layout, mCategoryList);
                   mGridView.setAdapter(mArrayAdapter);
               }
            }

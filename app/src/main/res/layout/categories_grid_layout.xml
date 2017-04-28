@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/GridRelativeLayout"
+    android:layout_alignBottom="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="@dimen/activity_horizontal_margin"
+    android:layout_alignStart="@dimen/activity_horizontal_margin"
+    android:layout_alignEnd="@dimen/activity_horizontal_margin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
 <GridView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/Category_GridView"
     android:layout_width="match_parent"
@@ -9,3 +20,4 @@
     android:horizontalSpacing="10dp"
     android:stretchMode="columnWidth"
     android:gravity="center" />
+</RelativeLayout>
