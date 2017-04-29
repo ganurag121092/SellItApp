@@ -11,14 +11,21 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CategoryActivity" />
-        <activity android:name=".CategoryItemList" />
-        <activity android:name=".UserLoginActivity" />
-        <activity android:name=".UserRegistrationActivity"></activity>
+        <activity android:name=".CategoryActivity"
+            android:label="Select Category "/>
+        <activity android:name=".UserLoginActivity"
+            android:label="Login"/>
+        <activity android:name=".ItemActivity"
+            android:label="Item Details"/>
+        <activity android:name=".UserRegistrationActivity"
+            android:label="Please Register" >
+        </activity>
+        <activity android:name=".CategoryItemSubItemActivity"
+            android:label="CategoryItem SubItem" >
+        </activity>
     </application>
 
 </manifest>

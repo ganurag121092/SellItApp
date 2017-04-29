@@ -9,12 +9,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Toast;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -40,15 +38,12 @@ public class CategoryActivity extends AppCompatActivity{
             {
                 Toast.makeText(CategoryActivity.this, "Category selected " + position,Toast.LENGTH_SHORT).show();
                 String mItemSelected =  parent.getItemAtPosition(position).toString();
-                Intent mIntent = new Intent(CategoryActivity.this,CategoryItemList.class);
+                Intent mIntent = new Intent(CategoryActivity.this,CategoryItemSubItemActivity.class);
                 mIntent.putExtra("SelectedItem", mItemSelected);
                  startActivity(mIntent);
             }
         });
     }
-
-
-
 
 
     public void getCategories()

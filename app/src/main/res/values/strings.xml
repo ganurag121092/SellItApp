@@ -11,4 +11,6 @@
     <string name="phone">Phone</string>
     <string name="reset">Reset</string>
     <string name="save">Save</string>
+    <string name="hello_user">Hello,</string>
+    <string name="signout">Sign Out</string>
 </resources>
