@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context=".MainActivity"
+    xmlns:compat="http://schemas.android.com/apk/res-auto"  >
+    <item android:id="@+id/Buy"
+        android:title="@string/buy"
+        android:actionLayout="@layout/menu_action_view"
+        compat:showAsAction="ifRoom|withText"
+        />
+    <item
+        android:id="@+id/Sell"
+        android:title="@string/sell"
+        android:actionLayout="@layout/menu_action_view"
+        compat:showAsAction="ifRoom|withText" />
+</menu>

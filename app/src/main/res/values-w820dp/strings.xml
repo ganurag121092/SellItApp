@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="filter">Filter</string>
+    <string name="sort">Sort</string>
+    <string name="apply">Apply</string>
+    <string name="clear">Clear</string>
+    <string name="price">Price</string>
+    <string name="buy">BUY</string>
+    <string name="sell">SELL</string>
+</resources>

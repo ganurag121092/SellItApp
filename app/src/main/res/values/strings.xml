@@ -13,4 +13,20 @@
     <string name="save">Save</string>
     <string name="hello_user">Hello,</string>
     <string name="signout">Sign Out</string>
+    <string name="filter">Filter</string>
+    <string name="sort">Sort</string>
+    <string name="apply">Apply</string>
+    <string name="clear">Clear</string>
+    <string name="price">Price</string>
+    <string name="buy">BUY</string>
+    <string name="sell">SELL</string>
+    <string-array name="MotorcyclePrice">
+        <item>Select Price Range</item>
+        <item>below 500$</item>
+        <item>500$ to 1000$</item>
+        <item>1000$ to 5000$</item>
+        <item>5000$ to 10000$</item>
+        <item>above 10000$</item>
+       </string-array>
+
 </resources>
