@@ -141,10 +141,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
             userData.latitude = Double.parseDouble(selectedLat);
             userData.longitude = Double.parseDouble(selectedLon);
             createAccount(userData);
-            //addUserToDatabase(userData);
-            //clearFields();
-            Toast.makeText(getBaseContext(), "User Data Saved", Toast.LENGTH_LONG).show();
-
             FirebaseAuth.getInstance().signOut();
         }
     }
@@ -186,6 +182,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             FirebaseAuth.getInstance().signOut();
+                            Toast.makeText(getBaseContext(), "User Data Saved", Toast.LENGTH_LONG).show();
+                            clearFields();
                             Intent intent= new Intent(UserRegistrationActivity.this,UserLoginActivity.class);
                             startActivity(intent);
                             //Toast.makeText(UserHelperActivity.this,"User Added in REALtimeDB",Toast.LENGTH_LONG).show();

@@ -42,7 +42,8 @@ public class CategoryActivity extends AppCompatActivity{
         if (user != null) {
             // User is signed in
             Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-            loginName = user.getEmail().substring(0,user.getEmail().length()-10);
+            String username = user.getEmail().substring(0,user.getEmail().length()-10);
+            loginName = username.substring(0,1).toUpperCase()+username.substring(1);
             Toast.makeText(getBaseContext(), user.getEmail() +" is signed-in!!",Toast.LENGTH_LONG).show();
         } else {
             // User is signed out
