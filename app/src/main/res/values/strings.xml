@@ -2,17 +2,22 @@
     <string name="app_name">SellIt</string>
     <string name="login_user">Login User</string>
     <string name="guest_user">Guest User</string>
-    <string name="login">LOGIN</string>
+    <string name="login">USERNAME</string>
     <string name="user_login">USER LOGIN</string>
     <string name="password">PASSWORD</string>
     <string name="register">Register</string>
     <string name="loginbtn">Login</string>
     <string name="user_registration">USER REGISTRATION</string>
-    <string name="phone">Phone</string>
+    <string name="phone">PHONE</string>
     <string name="reset">Reset</string>
     <string name="save">Save</string>
-    <string name="hello_user">Hello,</string>
-    <string name="signout">Sign Out</string>
+    <string name="address">ADDRESS</string>
+    <string name="get">GET</string>
+    <string name="location">LOCATION</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="set_location">SET LOCATION</string>
+
     <string name="filter">Filter</string>
     <string name="sort">Sort</string>
     <string name="apply">Apply</string>
@@ -20,13 +25,8 @@
     <string name="price">Price</string>
     <string name="buy">BUY</string>
     <string name="sell">SELL</string>
-    <string-array name="MotorcyclePrice">
-        <item>Select Price Range</item>
-        <item>below 500$</item>
-        <item>500$ to 1000$</item>
-        <item>1000$ to 5000$</item>
-        <item>5000$ to 10000$</item>
-        <item>above 10000$</item>
-       </string-array>
+    <string name="hello_user">Hello,</string>
+    <string name="signout">Sign Out</string>
+    <string name="profile">Profile</string>
 
 </resources>

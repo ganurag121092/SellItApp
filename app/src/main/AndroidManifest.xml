@@ -2,30 +2,31 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="buyerseller.cs646.sdsu.edu.sellit">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CategoryActivity"
-            android:label="Select Category "/>
-        <activity android:name=".UserLoginActivity"
-            android:label="Login"/>
-        <activity android:name=".ItemActivity"
-            android:label="Item Details"/>
-        <activity android:name=".UserRegistrationActivity"
-            android:label="Please Register" >
-        </activity>
-        <activity android:name=".CategoryItemSubItemActivity"
-            android:label="CategoryItem SubItem" >
-        </activity>
+        <activity android:name=".CategoryActivity" />
+        <activity android:name=".CategoryItemSubItemActivity" />
+        <activity android:name=".UserLoginActivity" />
+        <activity android:name=".UserRegistrationActivity" />
+        <activity android:name=".UserHelperActivity"/>
     </application>
 
 </manifest>

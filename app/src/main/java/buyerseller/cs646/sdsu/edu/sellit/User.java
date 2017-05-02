@@ -10,6 +10,7 @@ public class User implements Serializable {
     public String uid;
     public String email;
     public String address;
+    public String password;
     public String name;
     public Double latitude;
     public Double longitude;
@@ -18,10 +19,11 @@ public class User implements Serializable {
     public User(){
     }
 
-    public User(String uid, String email, String address, String name, Double latitude, Double longitude, long phone) {
+    public User(String uid, String email, String address, String password, String name, Double latitude, Double longitude, long phone) {
         this.uid = uid;
         this.email = email;
         this.address = address;
+        this.password = password;
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;

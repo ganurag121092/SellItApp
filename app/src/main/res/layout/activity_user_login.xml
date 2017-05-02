@@ -24,15 +24,14 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:orientation="horizontal">
 
     <TextView
         android:text="@string/login"
         android:layout_width="100dp"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="start|center"
+        android:layout_marginStart="10dp"
         android:padding="5dp"
         android:id="@+id/loginLabelId"
 
@@ -51,8 +50,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
         android:orientation="horizontal">
         <TextView
             android:text="@string/password"
@@ -60,7 +57,8 @@
             android:layout_height="match_parent"
             android:id="@+id/passwordLabelId"
             android:padding="5dp"
-            android:gravity="center"
+            android:gravity="start|center"
+            android:layout_marginStart="10dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
         <EditText
             android:layout_width="200dp"
@@ -94,9 +92,9 @@
             android:id="@+id/loginBtn"
             android:ems="10"
             android:layout_marginTop="20dp"
-
+            android:onClick="loginUser"
             android:text="@string/loginbtn"
-            tools:ignore="ButtonStyle,RtlHardcoded"            >
+            tools:ignore="ButtonStyle,RtlHardcoded">
 
         </Button>
     </LinearLayout>
