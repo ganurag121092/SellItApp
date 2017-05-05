@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,7 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class UserLoginActivity extends AppCompatActivity {
-    Button mLoginButton, mRegisterButton;
+    Button mLoginButton;
+    TextView mRegisterButton;
     private EditText mUsername, mPassword;
     String username, password;
     private FirebaseAuth mAuth;
@@ -32,7 +34,7 @@ public class UserLoginActivity extends AppCompatActivity {
         mPassword = (EditText) this.findViewById(R.id.passwordTextId);
 
         mLoginButton = (Button)this.findViewById(R.id.loginBtn);
-        mRegisterButton = (Button)this.findViewById(R.id.registerBtn);
+        mRegisterButton = (TextView)this.findViewById(R.id.registerBtn);
         mRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

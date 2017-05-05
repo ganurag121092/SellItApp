@@ -1,6 +1,6 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
-    android:background="#cbcece"
+    android:background="@color/colorTextView"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:paddingStart="6dip"
     android:textStyle="bold"

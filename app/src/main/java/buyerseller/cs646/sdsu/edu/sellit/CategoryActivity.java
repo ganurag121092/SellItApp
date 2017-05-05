@@ -24,7 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class CategoryActivity extends AppCompatActivity{
+public class CategoryActivity extends BaseActivity{
 
     private static final String TAG = "CategoryActivity" ;
     private static final String ConstantValue="Categories";
@@ -97,7 +97,6 @@ public class CategoryActivity extends AppCompatActivity{
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
     public void getCategories()
     {

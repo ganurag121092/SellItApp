@@ -56,8 +56,6 @@ public class CategoryItemFragment extends ListFragment {
         getItems(mDatabaseReference);
     }
 
-
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

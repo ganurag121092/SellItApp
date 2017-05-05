@@ -9,7 +9,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="buyerseller.cs646.sdsu.edu.sellit.UserLoginActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryLight"
+    android:weightSum="1">
 
     <TextView
         android:text="@string/user_login"
@@ -70,33 +72,46 @@
             tools:ignore="LabelFor">
         </EditText>
     </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="150dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        android:layout_weight="0.47">
 
-        android:orientation="horizontal">
-
-        <Button
+       <!-- <Button
             android:text="@string/register"
             android:layout_width="150dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:id="@+id/registerBtn"
-            tools:ignore="ButtonStyle" />
+            tools:ignore="ButtonStyle" />-->
 
         <Button
             android:layout_width="150dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/loginBtn"
             android:ems="10"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:onClick="loginUser"
             android:text="@string/loginbtn"
             tools:ignore="ButtonStyle,RtlHardcoded">
-
         </Button>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="Don't have an account? Sign up here!"
+            android:id="@+id/registerBtn"
+            android:layout_gravity="center_horizontal" />
+
     </LinearLayout>
 
 </LinearLayout>

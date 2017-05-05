@@ -9,7 +9,7 @@ import android.util.Log;
  * Created by vk on 4/28/17.
  */
 
-public class CategoryItemSubItemActivity extends AppCompatActivity implements CategoryItemFragment.CategoryItemListener {
+public class CategoryItemSubItemActivity extends BaseActivity implements CategoryItemFragment.CategoryItemListener {
 
     private String mSelectedItem;
     private static final String TAG ="CategoryItemSubItem";

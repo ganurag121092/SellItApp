@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import static android.app.Activity.RESULT_OK;
+
 public class UserHelperActivity extends AppCompatActivity implements UserMapFragment.SelectedLocation{
     private String selectedLatitude,selectedLongitude;
     @Override

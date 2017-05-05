@@ -1,0 +1,166 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryLight"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:id="@+id/NameLayout"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/itemDetails"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:text="@string/item_name"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:id="@+id/itemName"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:id="@+id/itemNameFirebaseValue"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/NameLayout"
+        android:id="@+id/PriceLayout"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true">
+
+
+        <TextView
+            android:text="@string/item_price"
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:id="@+id/itemPrice"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:id="@+id/itemPriceFirebaseValue"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/PriceLayout"
+        android:id="@+id/itemDescLayout"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true">
+
+
+        <TextView
+            android:text="@string/item_descr"
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_height="20dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/itemDescName" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:textSize="20sp"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:id="@+id/itemDescFirebaseValue" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:text="@string/item_details"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:id="@+id/itemDetails"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:id="@+id/ImageLayout"
+        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/SellerLayout"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:id="@+id/ImageFirebaseValue"
+            android:contentDescription="@null" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:id="@+id/SellerLayout"
+        android:layout_below="@+id/itemDescLayout"
+        android:layout_alignParentStart="true">
+
+
+        <TextView
+            android:text="@string/seller_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:id="@+id/SellerName"
+            android:textSize="20sp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:id="@+id/SellerNameFirebaseValue"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <Button
+        android:text="@string/buy_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/buy_item" />
+
+</RelativeLayout>

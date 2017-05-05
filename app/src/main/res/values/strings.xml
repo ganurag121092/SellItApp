@@ -28,5 +28,23 @@
     <string name="hello_user">Hello,</string>
     <string name="signout">Sign Out</string>
     <string name="profile">Profile</string>
+    <string name="price_range_in">PRICE RANGE in $</string>
+    <string name="item_details">ITEM DETAILS</string>
+    <string name="item_descr">ITEM Descr</string>
+    <string name="item_name">ITEM NAME</string>
+    <string name="item_price">ITEM PRICE</string>
+    <string name="seller_name">Seller Name</string>
+    <string name="buy_item">BUY</string>
+    <string-array name="PriceRange">
+        <item>0-100</item>
+        <item>100-500</item>
+        <item>500-1000</item>
+        <item>1000-2000</item>
+        <item>2000-3000</item>
+        <item>3000-4000</item>
+        <item>4000-5000</item>
+        <item>5000-10000</item>
+    </string-array>
+
 
 </resources>
