@@ -7,4 +7,15 @@
     <string name="price">Price</string>
     <string name="buy">BUY</string>
     <string name="sell">SELL</string>
+    <string name="item_price">ITEM PRICE</string>
+    <string name="item_description">ITEM DESCRIPTION</string>
+    <string name="post_your_add">Post Your Ad</string>
+    <string name="sub_category">SUB-CATEGORY</string>
+    <string name="Dollar">$</string>
+    <string name="imageUploadCount">No Image Added</string>
+    <string name="imageUploadStatus">Image\nAdded</string>
+    <string name="upload_images">UPLOAD IMAGE</string>
+    <string name="view_upload">UPLOAD</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up_here">Sign up here!</string>
 </resources>

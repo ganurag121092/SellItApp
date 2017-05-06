@@ -45,7 +45,7 @@ public class CategorySubItemFragment  extends Fragment {
     private int PriceMinimum, PriceMaximum;
     private FirebaseAuth firebaseAuth;
     FirebaseUser user;
-    private String CurrentUserId;
+    private String currentUser;
 
     public void CategorySubItemFragment (){
         // mandatory constructor
@@ -79,11 +79,13 @@ public class CategorySubItemFragment  extends Fragment {
         if (user != null) {
             // User is signed in
             Log.d(TAG, "onAuthStateChanged:signed_in:" + FirebaseAuth.getInstance().getCurrentUser().toString());
-            CurrentUserId=FirebaseAuth.getInstance().getCurrentUser().toString();
-            Toast.makeText(getActivity(), user.getEmail() +" is signed-in!!",Toast.LENGTH_LONG).show();
+            String username = user.getEmail().substring(0,user.getEmail().length()-10);
+            currentUser = username.substring(0,1).toUpperCase()+username.substring(1);
+
+            //Toast.makeText(getActivity(), user.getEmail() +" is signed-in!!",Toast.LENGTH_LONG).show();
         } else {
             // User is signed out
-            CurrentUserId = "Guest";
+            currentUser = "Guest";
             Log.d(TAG, "onAuthStateChanged:signed_out");
         }
 
@@ -236,14 +238,14 @@ public class CategorySubItemFragment  extends Fragment {
                         DataSnapshot dataSnapshotChild = dataSnapshots.next();
 
                       // ItemModel mItemModel = dataSnapshotChild.getValue(ItemModel.class);
-                      //  if (!TextUtils.equals(dataSnapshotChild.getKey().toString().split("_")[0],CurrentUserId))
-                      //  {
+                        if (!TextUtils.equals(dataSnapshotChild.getKey().toString().split("_")[0],currentUser))
+                        {
                             Log.d(TAG, dataSnapshotChild.child("itemName").getValue().toString());
                             String mCategoryName = dataSnapshotChild.child("itemName").getValue().toString();
                             mCategoryItemList.add(mCategoryName);
                             mArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, mCategoryItemList);
                             mListView.setAdapter(mArrayAdapter);
-                       //}
+                       }
                    }
                 }
                 else

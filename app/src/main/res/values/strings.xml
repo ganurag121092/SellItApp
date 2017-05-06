@@ -15,7 +15,7 @@
     <string name="get">GET</string>
     <string name="location">LOCATION</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="set_location">SET LOCATION</string>
 
     <string name="filter">Filter</string>
@@ -28,13 +28,25 @@
     <string name="hello_user">Hello,</string>
     <string name="signout">Sign Out</string>
     <string name="profile">Profile</string>
+    <string name="category">CATEGORY</string>
+    <string name="item_price">ITEM PRICE</string>
+    <string name="item_description">ITEM DESCRIPTION</string>
+    <string name="item_name">ITEM NAME</string>
+    <string name="item_title">ITEM TITLE</string>
+    <string name="post_your_add">Post Your Ad</string>
+    <string name="sub_category">SUB-CATEGORY</string>
+    <string name="Dollar">$</string>
+    <string name="imageUploadCount">No Image Added</string>
+    <string name="imageUploadStatus">Image\nAdded</string>
+    <string name="upload_images">UPLOAD IMAGE</string>
+    <string name="view_upload">UPLOAD</string>
     <string name="price_range_in">PRICE RANGE in $</string>
     <string name="item_details">ITEM DETAILS</string>
     <string name="item_descr">ITEM Descr</string>
-    <string name="item_name">ITEM NAME</string>
-    <string name="item_price">ITEM PRICE</string>
     <string name="seller_name">Seller Name</string>
     <string name="buy_item">BUY</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up_here">Sign up here!</string>
     <string-array name="PriceRange">
         <item>0-100</item>
         <item>100-500</item>

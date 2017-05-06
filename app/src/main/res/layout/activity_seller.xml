@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_seller"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
+    tools:context="buyerseller.cs646.sdsu.edu.sellit.SellerActivity">
+    <!--<TextView
+        android:text="@string/post_your_add"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:id="@+id/sellerTitle"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:text="@string/item_name"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="start|center"
+            android:layout_marginStart="10dp"
+
+            android:id="@+id/itemNameLabel"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:id="@+id/itemNametext"
+            android:inputType="textCapWords"
+
+            tools:ignore="LabelFor"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+            android:textSize="16sp"><requestFocus/>
+        </EditText>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <TextView
+            android:text="@string/item_title"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:id="@+id/itemTitleLabel"
+            android:gravity="start|center"
+            android:layout_marginStart="10dp"
+
+
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:id="@+id/itemTitleText"
+            android:inputType="textCapWords"
+            android:ems="10"
+
+            tools:ignore="LabelFor"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+            android:textSize="16sp">
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+        <TextView
+            android:text="@string/item_description"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:id="@+id/itemDescLabel"
+
+            android:gravity="start|center"
+            android:layout_marginStart="10dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+        <EditText
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"
+            android:ems="10"
+
+            android:id="@+id/itemDescText"
+            tools:ignore="LabelFor"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+
+        android:orientation="horizontal">
+        <TextView
+            android:text="@string/category"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:id="@+id/categoryLabel"
+
+            android:gravity="start|center"
+            android:layout_marginStart="10dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+        <Spinner
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:id="@+id/categorySpinner"
+            >
+        </Spinner>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+
+        android:orientation="horizontal">
+        <TextView
+            android:text="@string/sub_category"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:id="@+id/subCategoryLabel"
+
+            android:gravity="start|center"
+            android:layout_marginStart="10dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+        <Spinner
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:id="@+id/subCategorySpinner"
+            >
+        </Spinner>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <TextView
+            android:text="@string/item_price"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:id="@+id/itemPriceLabel"
+            android:gravity="start|center"
+            android:layout_marginStart="10dp"
+
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:id="@+id/itemCurrencyLabel"
+            android:gravity="start|center"
+
+            android:text="@string/Dollar"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="20sp"
+            android:textAlignment="center" />
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:id="@+id/itemPriceText"
+            android:inputType="number"
+            android:ems="10"
+
+            tools:ignore="LabelFor"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+            android:textSize="16sp">
+        </EditText>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <TextView
+            android:text="@string/upload_images"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:id="@+id/imageUploadLabel"
+            android:gravity="start|center"
+            android:layout_marginStart="10dp"
+
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:id="@+id/imageCount"
+            android:gravity="start|center"
+
+            android:text="@string/imageUploadCount"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textAlignment="center" />
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:id="@+id/imageUploadBtn"
+            android:inputType="number"
+            android:ems="10"
+            android:text="@string/view_upload"
+            tools:ignore="LabelFor,TextViewEdits">
+        </Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+
+        android:orientation="horizontal">
+
+        <Button
+            android:text="@string/reset"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="15dp"
+            android:id="@+id/resetBtn"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:id="@+id/saveBtn"
+            android:ems="10"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="5dp"
+            android:text="@string/save"
+            android:onClick="postItemData"
+            tools:ignore="ButtonStyle,RtlHardcoded">
+
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>

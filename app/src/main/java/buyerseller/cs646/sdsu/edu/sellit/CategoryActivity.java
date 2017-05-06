@@ -33,6 +33,8 @@ public class CategoryActivity extends BaseActivity{
     private GridView mGridView;
     private FirebaseAuth firebaseAuth;
     private static String loginName = "Guest";
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.categories_grid_layout);
@@ -65,37 +67,6 @@ public class CategoryActivity extends BaseActivity{
                  startActivity(mIntent);
             }
         });
-    }
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.select_buy_sell, menu);
-        MenuItem menuItem = menu.findItem(R.id.hello);
-        menuItem.setTitle("Hello, "+loginName);
-        MenuItem signoutMenu = menu.findItem(R.id.signout);
-        if(loginName == "Guest"){
-            signoutMenu.setVisible(false);
-        }
-        else{
-            signoutMenu.setVisible(true);
-        }
-        return true;
-    }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.hello:
-                return true;
-            case R.id.signout:
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(this,MainActivity.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     public void getCategories()

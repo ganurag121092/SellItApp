@@ -76,19 +76,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="0dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:orientation="vertical"
         android:layout_weight="0.47">
-
-       <!-- <Button
-            android:text="@string/register"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:id="@+id/registerBtn"
-            tools:ignore="ButtonStyle" />-->
 
         <Button
             android:layout_width="150dp"
@@ -101,17 +93,33 @@
             android:text="@string/loginbtn"
             tools:ignore="ButtonStyle,RtlHardcoded">
         </Button>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:layout_gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:textSize="15sp"
-            android:text="Don't have an account? Sign up here!"
-            android:id="@+id/registerBtn"
-            android:layout_gravity="center_horizontal" />
+            android:layout_marginStart="30dp"
+            android:text="@string/don_t_have_an_account"
+            android:id="@+id/signUp"
+            />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/sign_up_here"
+        android:id="@+id/registerBtn"
+        />
 
+    </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

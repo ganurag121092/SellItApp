@@ -70,7 +70,7 @@ public class UserLoginActivity extends AppCompatActivity {
 
     public void loginUser(final View button){
         boolean isValid = true;
-        username = mUsername.getText().toString();
+        username = mUsername.getText().toString().trim();
         password = mPassword.getText().toString();
 
         if(TextUtils.isEmpty(username)){

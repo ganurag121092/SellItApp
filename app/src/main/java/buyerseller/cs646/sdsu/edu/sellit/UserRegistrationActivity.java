@@ -25,7 +25,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     private static final int INTENT_LOCATION_REQUEST = 125;
     private EditText mUsername, mPassword, mPhone, mAddress, mLatitude, mLongitude;
     String username, password, phone, address, selectedLat, selectedLon;
-    static User userData;
+    static UserModel userData;
     private FirebaseAuth mAuth;
     static FirebaseUser firebaseUser;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -69,9 +69,6 @@ public class UserRegistrationActivity extends AppCompatActivity {
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                     //  Toast.makeText(UserHelperActivity.this,"Login User Null",Toast.LENGTH_LONG).show();
                 }
-               /* // [START_EXCLUDE]
-                updateUI(user);
-                // [END_EXCLUDE]*/
             }
         };
     }
@@ -122,7 +119,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         }
         if(TextUtils.isEmpty(phone)){
             //Toast.makeText(getBaseContext(), "Please Enter Password", Toast.LENGTH_LONG).show();
-            mPassword.setError("Phone number Required");
+            mPhone.setError("Phone number Required");
             isValid = false;
         }
         if(TextUtils.isEmpty(selectedLat)|| TextUtils.isEmpty((selectedLon))){
@@ -133,11 +130,11 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         if (isValid) {
             Log.i("Data Validity","All enter data Valid");
-            userData = new User();
+            userData = new UserModel();
             userData.name = username;
             userData.address = address;
             userData.password = password;
-            userData.phone = Long.parseLong(phone);
+            userData.phone = phone;
             userData.latitude = Double.parseDouble(selectedLat);
             userData.longitude = Double.parseDouble(selectedLon);
             createAccount(userData);
@@ -145,7 +142,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         }
     }
 
-    private void createAccount(User userDataModel){
+    private void createAccount(UserModel userDataModel){
         final String email = userDataModel.name.toLowerCase() + "@gmail.com";
         final String password = userDataModel.password;
         Log.i("Email and Password", email + " " + userDataModel.password);
@@ -167,7 +164,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
     }
 
 
-    public void addUserToDatabase(User userDataModel, FirebaseUser fbUser) {
+    public void addUserToDatabase(UserModel userDataModel, FirebaseUser fbUser) {
         //Log.i("FINAL I m here",userDataModel.nickname + "  "+ firebaseUser.getEmail());
         userDataModel.email = fbUser.getEmail();
         userDataModel.uid = fbUser.getUid();
