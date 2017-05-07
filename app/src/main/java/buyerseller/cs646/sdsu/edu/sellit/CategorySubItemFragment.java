@@ -237,7 +237,7 @@ public class CategorySubItemFragment  extends Fragment {
                    while (dataSnapshots.hasNext() ) {
                         DataSnapshot dataSnapshotChild = dataSnapshots.next();
 
-                      // ItemModel mItemModel = dataSnapshotChild.getValue(ItemModel.class);
+                        // ItemModel mItemModel = dataSnapshotChild.getValue(ItemModel.class);
                         if (!TextUtils.equals(dataSnapshotChild.getKey().toString().split("_")[0],currentUser))
                         {
                             Log.d(TAG, dataSnapshotChild.child("itemName").getValue().toString());

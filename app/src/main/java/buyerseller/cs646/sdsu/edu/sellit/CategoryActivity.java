@@ -46,7 +46,7 @@ public class CategoryActivity extends BaseActivity{
             Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
             String username = user.getEmail().substring(0,user.getEmail().length()-10);
             loginName = username.substring(0,1).toUpperCase()+username.substring(1);
-            Toast.makeText(getBaseContext(), user.getEmail() +" is signed-in!!",Toast.LENGTH_LONG).show();
+           // Toast.makeText(getBaseContext(), user.getEmail() +" is signed-in!!",Toast.LENGTH_LONG).show();
         } else {
             // User is signed out
             loginName = "Guest";

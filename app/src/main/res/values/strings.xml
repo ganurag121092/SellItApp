@@ -48,7 +48,6 @@
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="sign_up_here">Sign up here!</string>
     <string-array name="PriceRange">
-        <item>none(selected)</item>
         <item>0-100</item>
         <item>100-500</item>
         <item>500-1000</item>
@@ -59,6 +58,7 @@
         <item>5000-10000</item>
     </string-array>
     <string name="title_activity_chat">ChatActivity</string>
+    <string name="send">SEND</string>
 
 
 </resources>
