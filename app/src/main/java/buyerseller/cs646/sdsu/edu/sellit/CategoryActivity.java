@@ -69,6 +69,7 @@ public class CategoryActivity extends BaseActivity{
         });
     }
 
+
     public void getCategories()
     {
           FirebaseDatabase.getInstance().getReference().child("Categories").addListenerForSingleValueEvent(new ValueEventListener() {

@@ -1,26 +1,30 @@
 package buyerseller.cs646.sdsu.edu.sellit;
-import android.content.ClipData;
+
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
-
+import java.util.Map;
 /**
  * Created by vk on 4/28/17.
  */
@@ -33,11 +37,17 @@ public class ItemActivity extends BaseActivity {
     private TextView mItemPrice,mItemPriceFirebaseValue;
     private TextView mItemDescFirebaseValue;
     private TextView mSellerName,mSellerNameFirebaseValue;
+    private ImageView mImageView;
     private static final String TAG ="ItemActivity";
     private Button mBuy,mChat;
     private ImageButton mPhoneCall;
     private String SellerName;
     private String mPhoneNumber;
+    private FirebaseAuth firebaseAuth;
+    private Context mContext;
+    private static String loginName = "Guest";
+    private String mUserUID;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +57,16 @@ public class ItemActivity extends BaseActivity {
         mBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG,loginName);
+                if (loginName.equals("Guest"))
+                {
+                    Toast.makeText(ItemActivity.this, "Please login !!!" , Toast.LENGTH_LONG).show();
+                    Intent mIntent =new Intent(ItemActivity.this,UserRegistrationActivity.class);
+                    startActivity(mIntent);
+                }
+                else
+                purchasedItem();
+
             }
         });
 
@@ -71,29 +91,42 @@ public class ItemActivity extends BaseActivity {
         });
     }
 
-
-
     private void initalizeItems() {
         Bundle args=getIntent().getExtras();
         mSelectedItem=args.getString("Item");
         mSelectedParentItem=args.getString("SelectedSubItem");
         Log.d(TAG,mSelectedItem + " " +mSelectedParentItem);
-        mItemDetails =(TextView)findViewById(R.id.itemDetails);
+        mContext=getBaseContext();
         mItemName= (TextView)findViewById(R.id.itemName);
         mItemNameFirebaseValue=(TextView)findViewById(R.id.itemNameFirebaseValue);
         mItemPrice=(TextView)findViewById(R.id.itemPrice);
         mItemPriceFirebaseValue=(TextView)findViewById(R.id.itemPriceFirebaseValue);
-        //mItemDescName=(TextView)findViewById(R.id.itemDescName);
         mItemDescFirebaseValue=(TextView)findViewById(R.id.itemDescFirebaseValue);
         mSellerName=(TextView)findViewById(R.id.SellerName);
         mSellerNameFirebaseValue=(TextView)findViewById(R.id.SellerNameFirebaseValue);
+        mImageView=(ImageView) findViewById(R.id.ImageFirebaseValue);
         mBuy=(Button) findViewById(R.id.buy_item);
         mChat=(Button) findViewById(R.id.buttonchat);
         mPhoneCall=(ImageButton) findViewById(R.id.ButtonCall);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child(mSelectedParentItem);
+        firebaseAuth = FirebaseAuth.getInstance();
+        user= firebaseAuth.getCurrentUser();
+
+        if (user != null) {
+            // User is signed in
+            Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+            String username = user.getEmail().substring(0,user.getEmail().length()-10);
+            loginName = username.substring(0,1).toUpperCase()+username.substring(1);
+            mUserUID=user.getUid();
+            Toast.makeText(getBaseContext(), user.getEmail() +" is signed-in!!",Toast.LENGTH_LONG).show();
+        } else
+        {
+            // User is signed out
+            loginName = "Guest";
+            Log.d(TAG, "onAuthStateChanged:signed_out");
+        }
         getItems(mDatabaseReference);
     }
-
 
     public void getItems(final DatabaseReference mDatabaseReference)
     {
@@ -118,6 +151,8 @@ public class ItemActivity extends BaseActivity {
                         SellerName=mItemModel.getSellerName();
                         getSellerDetails(mItemModel.getSellerName());
                         mSellerNameFirebaseValue.setText(mItemModel.getSellerName());
+                        String url= mItemModel.getImageUrl();
+                        Glide.with(mContext).load(url).into(mImageView);
                     }
                 }
             }
@@ -128,8 +163,6 @@ public class ItemActivity extends BaseActivity {
         });
     }
 
-
-
     public void getSellerDetails(String name)
     {
         Log.d(TAG,"getSellerDetails" + name);
@@ -138,16 +171,50 @@ public class ItemActivity extends BaseActivity {
             public void onDataChange(DataSnapshot dataSnapshot)
             {
 
-                    Log.d(TAG,dataSnapshot.getValue().toString() );
-                    UserModel mUsers = dataSnapshot.getValue(UserModel.class);
-                    Log.d(TAG, mUsers.phone);
-                    mPhoneNumber=mUsers.phone;
+                Log.d(TAG,dataSnapshot.getValue().toString() );
+                UserModel mUsers = dataSnapshot.getValue(UserModel.class);
+                Log.d(TAG, mUsers.phone);
+                mPhoneNumber=mUsers.phone;
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(ItemActivity.this, "failed to bring the data" , Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void purchasedItem()
+    {
+        Log.d(TAG,"purchasedItem" );
+        mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                        Iterator<DataSnapshot> dataSnapshots = dataSnapshot.getChildren().iterator();
+                        while (dataSnapshots.hasNext()) {
+                            DataSnapshot dataSnapshotChild = dataSnapshots.next();
+                            Log.d(TAG, dataSnapshotChild.getValue().toString());
+                            String ItemName = dataSnapshotChild.child("itemName").getValue().toString();
+                            if (ItemName.equals(mSelectedItem))
+                            {
+                                Log.d(TAG,loginName +  " " + dataSnapshotChild.getKey() +  dataSnapshotChild.getRef());
+                                DatabaseReference mDatabaseReference= dataSnapshotChild.getRef();
+                                Map<String, Object> childUpdates = new HashMap<>();
+                                childUpdates.put("buyerId" , user.getUid());
+                                childUpdates.put("buyerName" ,loginName);
+                                mDatabaseReference.updateChildren(childUpdates);
+                           }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(ItemActivity.this, "failed to bring the data" , Toast.LENGTH_LONG).show();
+            }
+        });
+
+        Toast.makeText(ItemActivity.this, "thanks for purchasing" , Toast.LENGTH_LONG).show();
+        FragmentManager fm = getSupportFragmentManager();
+        BuyFragment dialogFragment = new BuyFragment();
+        dialogFragment.show(fm, "Sample Fragment");
     }
 
 }

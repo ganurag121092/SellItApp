@@ -33,9 +33,13 @@ public class CategorySubItemFragment  extends Fragment {
 
     private static final String TAG = "CategorySubItemFragment";
     private String mSubItemSelected;
+
     private DatabaseReference mDatabaseReference;
     private List<String> mCategoryItemList ;
+    private List<ItemModel> mItemList;
     private ArrayAdapter<String> mArrayAdapter;
+    private ArrayAdapter<CharSequence> mSpinnerAdapter;
+
     private View mRootView;
     private ListView mListView;
     private Button mApply, mClear;
@@ -46,6 +50,7 @@ public class CategorySubItemFragment  extends Fragment {
     private FirebaseAuth firebaseAuth;
     FirebaseUser user;
     private String currentUser;
+
 
     public void CategorySubItemFragment (){
         // mandatory constructor
@@ -61,7 +66,7 @@ public class CategorySubItemFragment  extends Fragment {
         return mCategorySubItemFragment;
     }
 
-
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -88,21 +93,27 @@ public class CategorySubItemFragment  extends Fragment {
             currentUser = "Guest";
             Log.d(TAG, "onAuthStateChanged:signed_out");
         }
-
-
-        getItems(mDatabaseReference);
+       getItems(mDatabaseReference);
     }
 
     //create view and initializing all the fragment elements
     @Override
     public View onCreateView(LayoutInflater mInflater, ViewGroup mContainer, Bundle savedInstanceState) {
         super.onCreateView(mInflater, mContainer, savedInstanceState);
-        mPriceList= new ArrayList<String>(){{ add("Select(None)");}};
+
+        mPriceList= new ArrayList<String>(){
+            {
+                add("Select(None)");
+            }
+        };
+
         mRootView = mInflater.inflate(R.layout.categotysubitem_fragmentlayout, mContainer, false);
         mListView = (ListView) mRootView.findViewById(R.id.SubItemListView);
         mApply=(Button) mRootView.findViewById(R.id.Apply);
         mClear=(Button) mRootView.findViewById(R.id.clear);
         mPriceSpinner =(Spinner)mRootView.findViewById(R.id.PriceSpinner);
+        mItemList=new ArrayList<ItemModel>();
+        mCategoryItemList= new ArrayList<>();
         return mRootView;
     }
 
@@ -110,8 +121,9 @@ public class CategorySubItemFragment  extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         // popluating the price range with respect to the selected item
-        populatePrice(mSubItemSelected);
+        populatePrice();
 
        // to populate the item of items which are in stock( firebase DB).
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -133,10 +145,13 @@ public class CategorySubItemFragment  extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 Toast.makeText(getActivity(), "Price   selected " + position,Toast.LENGTH_SHORT).show();
                 mPriceSelected=adapterView.getItemAtPosition(position).toString();
-                String[] split = mPriceSelected.split("-");
-                PriceMinimum = Integer.valueOf(split[0]);
-                PriceMaximum = Integer.valueOf(split[1]);
-                Log.d(TAG, "Price   selected " + " " + PriceMinimum + " " + PriceMaximum);
+                if(!mPriceSelected.equals("none(selected)"))
+                {
+                    String[] split = mPriceSelected.split("-");
+                    PriceMinimum = Integer.valueOf(split[0]);
+                    PriceMaximum = Integer.valueOf(split[1]);
+                    Log.d(TAG, "Price   selected " + " " + PriceMinimum + " " + PriceMaximum);
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -148,73 +163,55 @@ public class CategorySubItemFragment  extends Fragment {
         mClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                populatePrice();
+                getItems(mDatabaseReference);
                 PriceMinimum =0;
                 PriceMaximum =0;
-
             }
         });
 
+        // on clicking the apply button it will apply the  selected filter selection
         mApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG,"onClick Apply");
                 getPricesList();
             }
         });
-
     }
 
-   public void  populatePrice(String mItemSelected)
+   public void  populatePrice()
    {
-       ArrayAdapter<CharSequence> adapter=null;
-       if(mItemSelected.equals(mItemSelected)){
-           adapter = ArrayAdapter.createFromResource(getActivity(), R.array.PriceRange, android.R.layout.simple_spinner_item);
-       }
-       adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-       mPriceSpinner.setAdapter(adapter);
+       mSpinnerAdapter = ArrayAdapter.createFromResource(getActivity(), R.array.PriceRange, android.R.layout.simple_spinner_item);
+       mSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+       mPriceSpinner.setAdapter(mSpinnerAdapter);
    }
 
     public void getPricesList()
     {
-        Log.d(TAG, "getPricesList  ");
-        //final int Value =15000;
+        Log.d(TAG, "getPricesList  "+ PriceMinimum + PriceMaximum);
         mCategoryItemList= new ArrayList<>();
+        mItemList=new ArrayList<ItemModel>();
         mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterator<DataSnapshot> dataSnapshots = dataSnapshot.getChildren().iterator();
-                Log.d(TAG, dataSnapshot.child("itemName").getChildren().iterator().toString());
+             //                Log.d(TAG, dataSnapshot.child("itemName").getChildren().iterator().toString());
+                while (dataSnapshots.hasNext() )
+                {
+                    DataSnapshot dataSnapshotChild = dataSnapshots.next();
+                    if (!TextUtils.equals(dataSnapshotChild.getKey().toString().split("_")[0],currentUser))
+                    {
+                        Log.d(TAG, dataSnapshotChild.child("itemName").getValue().toString());
+                        ItemModel mItemModel = dataSnapshotChild.getValue(ItemModel.class);
+                        if((mItemModel.getBuyerId().equals(""))&&(mItemModel.getBuyerName().equals("")))
+                        {
+                            mItemList.add(mItemModel);
+                        }
 
-                    while (dataSnapshots.hasNext() ) {
-                        DataSnapshot dataSnapshotChild = dataSnapshots.next();
-                        //Log.d(TAG, dataSnapshotChild.child("itemName").getValue().toString());
-                        String Price =dataSnapshotChild.child("sellingCost").getValue().toString();
-                        Log.d(TAG, "Price "+ Price);
-                        if(PriceMinimum ==0 && PriceMaximum==0)
-                        {
-                            Log.d(TAG, "Price when 0 "+ PriceMinimum + " " + PriceMaximum + " ");
-                            String mCategoryName = dataSnapshotChild.child("itemName").getValue().toString();
-                            mCategoryItemList.add(mCategoryName);
-                            mArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, mCategoryItemList);
-                            mListView.setAdapter(mArrayAdapter);
-                            mArrayAdapter.notifyDataSetChanged();
-                        }
-                        else
-                        if(Integer.valueOf(Price)>=PriceMinimum && Integer.valueOf(Price)<=PriceMaximum)
-                        {
-                            Log.d(TAG, "Price when > and < "+ PriceMinimum + " " + PriceMaximum + " ");
-                            String mCategoryName = dataSnapshotChild.child("itemName").getValue().toString();
-                            mCategoryItemList.add(mCategoryName);
-                            mArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, mCategoryItemList);
-                            mListView.setAdapter(mArrayAdapter);
-                            mArrayAdapter.notifyDataSetChanged();
-                        }
-                        else
-                        {
-                            Log.d(TAG, " what is this"+ PriceMinimum + " " + PriceMaximum + " ");
-                            mArrayAdapter.clear();
-                        }
                     }
+                }
+                getFilteresPriceItems(mItemList);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -222,42 +219,61 @@ public class CategorySubItemFragment  extends Fragment {
             }
         });
     }
-    // fetch subitems names
+
+
+    public void getFilteresPriceItems(List<ItemModel> itemList)
+    {
+        Log.d(TAG, "getPrices  "+ PriceMinimum + PriceMaximum);
+        ArrayList<String> mCategoryItemList=new ArrayList<>();
+        for (ItemModel each :itemList )
+        {
+            if(Integer.valueOf(each.getSellingCost())>=PriceMinimum && Integer.valueOf(each.getSellingCost())<=PriceMaximum) {
+                mCategoryItemList.add(each.getItemName());
+            }
+        }
+        mArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, mCategoryItemList);
+        mListView.setAdapter(mArrayAdapter);
+        mArrayAdapter.notifyDataSetChanged();
+    }
+
+
+    // fetch subitems names as soon as activity is launched
     public void getItems(final DatabaseReference mDatabaseReference)
     {
-
         Log.d(TAG,"getItems");
         mCategoryItemList= new ArrayList<>();
         mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterator<DataSnapshot> dataSnapshots = dataSnapshot.getChildren().iterator();
-               // Log.d(TAG, dataSnapshot.child("itemName").getChildren().iterator().toString());
-                if (dataSnapshot.getValue() != null) {
-                   while (dataSnapshots.hasNext() ) {
-                        DataSnapshot dataSnapshotChild = dataSnapshots.next();
+        @Override
+          public void onDataChange(DataSnapshot dataSnapshot) {
+          Iterator<DataSnapshot> dataSnapshots = dataSnapshot.getChildren().iterator();
+          if (dataSnapshot.getValue() != null) {
+          while (dataSnapshots.hasNext() )
+          {
+             DataSnapshot dataSnapshotChild = dataSnapshots.next();
+             if (!TextUtils.equals(dataSnapshotChild.getKey().toString().split("_")[0],currentUser))
+             {
+               Log.d(TAG, dataSnapshotChild.child("itemName").getValue().toString());
+                 ItemModel mItemModel = dataSnapshotChild.getValue(ItemModel.class);
+                 if((mItemModel.getBuyerId().equals(""))&&(mItemModel.getBuyerName().equals("")))
+                 {
+                     Log.d(TAG, "insideeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+                     // String mCategoryName = dataSnapshotChild.child("itemName").getValue().toString();
+                     String mCategoryName = mItemModel.getItemName();
+                     mCategoryItemList.add(mCategoryName);
+                     mArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, mCategoryItemList);
+                     mListView.setAdapter(mArrayAdapter);
+                 }
 
-                      // ItemModel mItemModel = dataSnapshotChild.getValue(ItemModel.class);
-                        if (!TextUtils.equals(dataSnapshotChild.getKey().toString().split("_")[0],currentUser))
-                        {
-                            Log.d(TAG, dataSnapshotChild.child("itemName").getValue().toString());
-                            String mCategoryName = dataSnapshotChild.child("itemName").getValue().toString();
-                            mCategoryItemList.add(mCategoryName);
-                            mArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, mCategoryItemList);
-                            mListView.setAdapter(mArrayAdapter);
-                       }
-                   }
-                }
-                else
-                {
-                    mDatabaseReference.removeEventListener(this);
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getActivity(), "failed to bring the data" , Toast.LENGTH_LONG).show();
-            }
+             }
+          }
+        }
+            else
+            mDatabaseReference.removeEventListener(this);
+        }
+          @Override
+          public void onCancelled(DatabaseError databaseError) {
+          Toast.makeText(getActivity(), "failed to bring the data" , Toast.LENGTH_LONG).show();
+          }
         });
     }
-
 }

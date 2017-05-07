@@ -46,7 +46,9 @@
     <string name="seller_name">Seller Name</string>
     <string name="buy_item">BUY</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="Thankyou">Thank you for Purchasing !!</string>
     <string name="sign_up_here">Sign up here!</string>
+    <string name="ShopMore">Shop More</string>
     <string-array name="PriceRange">
         <item>none(selected)</item>
         <item>0-100</item>
@@ -59,6 +61,7 @@
         <item>5000-10000</item>
     </string-array>
     <string name="title_activity_chat">ChatActivity</string>
+    <string name="chat">Chat</string>
 
 
 </resources>
