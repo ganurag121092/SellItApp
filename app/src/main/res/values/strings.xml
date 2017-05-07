@@ -61,6 +61,7 @@
         <item>5000-10000</item>
     </string-array>
     <string name="title_activity_chat">ChatActivity</string>
+    <string name="send">SEND</string>
     <string name="chat">Chat</string>
 
 

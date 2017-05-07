@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.support.v4.app.FragmentManager;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -41,8 +44,11 @@ public class ItemActivity extends BaseActivity {
     private static final String TAG ="ItemActivity";
     private Button mBuy,mChat;
     private ImageButton mPhoneCall;
-    private String SellerName;
+    private String sellerName, sellerUId, buyerName, buyerUId;
     private String mPhoneNumber;
+    private FirebaseAuth firebaseAuth;
+    FirebaseUser user;
+//    private static String loginName = "Guest";
     private FirebaseAuth firebaseAuth;
     private Context mContext;
     private static String loginName = "Guest";
@@ -53,7 +59,37 @@ public class ItemActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_detail_layout);
+        mItemDetails =(TextView)findViewById(R.id.itemDetails);
+        mItemName= (TextView)findViewById(R.id.itemName);
+        mItemNameFirebaseValue=(TextView)findViewById(R.id.itemNameFirebaseValue);
+        mItemPrice=(TextView)findViewById(R.id.itemPrice);
+        mItemPriceFirebaseValue=(TextView)findViewById(R.id.itemPriceFirebaseValue);
+        //mItemDescName=(TextView)findViewById(R.id.itemDescName);
+        mItemDescFirebaseValue=(TextView)findViewById(R.id.itemDescFirebaseValue);
+        mSellerName=(TextView)findViewById(R.id.SellerName);
+        mSellerNameFirebaseValue=(TextView)findViewById(R.id.SellerNameFirebaseValue);
+        mBuy=(Button) findViewById(R.id.buy_item);
+        mChat=(Button) findViewById(R.id.buttonchat);
+        mPhoneCall=(ImageButton) findViewById(R.id.ButtonCall);
         initalizeItems();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
+
+        if (user != null) {
+            // User is signed in
+            Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+
+            String username = user.getEmail().substring(0,user.getEmail().length()-10);
+            buyerName = username.substring(0,1).toUpperCase()+username.substring(1);
+            buyerUId = user.getUid();
+
+        } else {
+            // User is signed out
+            //loginName = "Guest";
+            Log.d(TAG, "onAuthStateChanged:signed_out");
+        }
+
         mBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,8 +110,19 @@ public class ItemActivity extends BaseActivity {
         mChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Intent chatIntent = new Intent(ItemActivity.this,ChatActivity.class);
-                startActivity(chatIntent);
+                if(user!=null) {
+                    Intent chatIntent = new Intent(ItemActivity.this, ChatActivity.class);
+                    Bundle bundle = new Bundle();
+                    chatIntent.putExtra("CurrentUser", buyerName);
+                    chatIntent.putExtra("Seller", sellerName);
+                    chatIntent.putExtra("CurrentUserUID", buyerUId);
+                    chatIntent.putExtra("SellerUID", sellerUId);
+
+                    startActivity(chatIntent);
+                }
+                else {
+                    Toast.makeText(ItemActivity.this, "You Must Register First" , Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -83,10 +130,15 @@ public class ItemActivity extends BaseActivity {
             @Override
             public void onClick(View arg0)
             {
-                Log.d(TAG,mPhoneNumber);
-                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse("tel:"+mPhoneNumber));
-                startActivity(callIntent);
+                if(user!=null) {
+                    Log.d(TAG, mPhoneNumber);
+                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                    callIntent.setData(Uri.parse("tel:" + mPhoneNumber));
+                    startActivity(callIntent);
+                }
+                else{
+                    Toast.makeText(ItemActivity.this, "You Must Register First" , Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -139,7 +191,7 @@ public class ItemActivity extends BaseActivity {
                 while (dataSnapshots.hasNext() )
                 {
                     DataSnapshot dataSnapshotChild = dataSnapshots.next();
-                    Log.d(TAG,dataSnapshotChild.getValue().toString() );
+                    //Log.d(TAG,dataSnapshotChild.getValue().toString() );
                     String ItemName= dataSnapshotChild.child("itemName").getValue().toString();
                     if(ItemName.equals(mSelectedItem))
                     {
@@ -148,7 +200,9 @@ public class ItemActivity extends BaseActivity {
                         mItemNameFirebaseValue.setText(mItemModel.getItemName());
                         mItemPriceFirebaseValue.setText(mItemModel.getSellingCost());
                         mItemDescFirebaseValue.setText(mItemModel.getItemDescription());
-                        SellerName=mItemModel.getSellerName();
+                        //SellerName=mItemModel.getSellerName();
+                        sellerName = mItemModel.getSellerName();
+                        sellerUId = mItemModel.getSellerId();
                         getSellerDetails(mItemModel.getSellerName());
                         mSellerNameFirebaseValue.setText(mItemModel.getSellerName());
                         String url= mItemModel.getImageUrl();
@@ -171,10 +225,10 @@ public class ItemActivity extends BaseActivity {
             public void onDataChange(DataSnapshot dataSnapshot)
             {
 
-                Log.d(TAG,dataSnapshot.getValue().toString() );
-                UserModel mUsers = dataSnapshot.getValue(UserModel.class);
-                Log.d(TAG, mUsers.phone);
-                mPhoneNumber=mUsers.phone;
+                    //Log.d(TAG,dataSnapshot.getValue().toString() );
+                    UserModel mUsers = dataSnapshot.getValue(UserModel.class);
+                    Log.d(TAG, mUsers.phone);
+                    mPhoneNumber=mUsers.phone;
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
