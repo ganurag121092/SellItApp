@@ -12,10 +12,6 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-/**
- * Created by vk on 4/29/17.
- */
-
 public class BaseActivity extends AppCompatActivity {
     private String TAG="BaseActivity";
     private FirebaseAuth firebaseAuth;

@@ -4,12 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.support.v4.app.FragmentManager;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,9 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-/**
- * Created by vk on 4/28/17.
- */
+
 
 public class ItemActivity extends BaseActivity {
 
@@ -47,9 +42,6 @@ public class ItemActivity extends BaseActivity {
     private String sellerName, sellerUId, buyerName, buyerUId;
     private String mPhoneNumber;
     private FirebaseAuth firebaseAuth;
-    FirebaseUser user;
-//    private static String loginName = "Guest";
-    private FirebaseAuth firebaseAuth;
     private Context mContext;
     private static String loginName = "Guest";
     private String mUserUID;
@@ -59,7 +51,7 @@ public class ItemActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.item_detail_layout);
-        mItemDetails =(TextView)findViewById(R.id.itemDetails);
+        mContext=getBaseContext();
         mItemName= (TextView)findViewById(R.id.itemName);
         mItemNameFirebaseValue=(TextView)findViewById(R.id.itemNameFirebaseValue);
         mItemPrice=(TextView)findViewById(R.id.itemPrice);
@@ -67,6 +59,7 @@ public class ItemActivity extends BaseActivity {
         //mItemDescName=(TextView)findViewById(R.id.itemDescName);
         mItemDescFirebaseValue=(TextView)findViewById(R.id.itemDescFirebaseValue);
         mSellerName=(TextView)findViewById(R.id.SellerName);
+        mImageView=(ImageView) findViewById(R.id.ImageFirebaseValue);
         mSellerNameFirebaseValue=(TextView)findViewById(R.id.SellerNameFirebaseValue);
         mBuy=(Button) findViewById(R.id.buy_item);
         mChat=(Button) findViewById(R.id.buttonchat);
@@ -83,7 +76,8 @@ public class ItemActivity extends BaseActivity {
             String username = user.getEmail().substring(0,user.getEmail().length()-10);
             buyerName = username.substring(0,1).toUpperCase()+username.substring(1);
             buyerUId = user.getUid();
-
+            loginName = username.substring(0,1).toUpperCase()+username.substring(1);
+            mUserUID=user.getUid();
         } else {
             // User is signed out
             //loginName = "Guest";
@@ -97,7 +91,7 @@ public class ItemActivity extends BaseActivity {
                 if (loginName.equals("Guest"))
                 {
                     Toast.makeText(ItemActivity.this, "Please login !!!" , Toast.LENGTH_LONG).show();
-                    Intent mIntent =new Intent(ItemActivity.this,UserRegistrationActivity.class);
+                    Intent mIntent =new Intent(ItemActivity.this,MainActivity.class);
                     startActivity(mIntent);
                 }
                 else
@@ -148,35 +142,7 @@ public class ItemActivity extends BaseActivity {
         mSelectedItem=args.getString("Item");
         mSelectedParentItem=args.getString("SelectedSubItem");
         Log.d(TAG,mSelectedItem + " " +mSelectedParentItem);
-        mContext=getBaseContext();
-        mItemName= (TextView)findViewById(R.id.itemName);
-        mItemNameFirebaseValue=(TextView)findViewById(R.id.itemNameFirebaseValue);
-        mItemPrice=(TextView)findViewById(R.id.itemPrice);
-        mItemPriceFirebaseValue=(TextView)findViewById(R.id.itemPriceFirebaseValue);
-        mItemDescFirebaseValue=(TextView)findViewById(R.id.itemDescFirebaseValue);
-        mSellerName=(TextView)findViewById(R.id.SellerName);
-        mSellerNameFirebaseValue=(TextView)findViewById(R.id.SellerNameFirebaseValue);
-        mImageView=(ImageView) findViewById(R.id.ImageFirebaseValue);
-        mBuy=(Button) findViewById(R.id.buy_item);
-        mChat=(Button) findViewById(R.id.buttonchat);
-        mPhoneCall=(ImageButton) findViewById(R.id.ButtonCall);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child(mSelectedParentItem);
-        firebaseAuth = FirebaseAuth.getInstance();
-        user= firebaseAuth.getCurrentUser();
-
-        if (user != null) {
-            // User is signed in
-            Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-            String username = user.getEmail().substring(0,user.getEmail().length()-10);
-            loginName = username.substring(0,1).toUpperCase()+username.substring(1);
-            mUserUID=user.getUid();
-            Toast.makeText(getBaseContext(), user.getEmail() +" is signed-in!!",Toast.LENGTH_LONG).show();
-        } else
-        {
-            // User is signed out
-            loginName = "Guest";
-            Log.d(TAG, "onAuthStateChanged:signed_out");
-        }
         getItems(mDatabaseReference);
     }
 
@@ -191,7 +157,7 @@ public class ItemActivity extends BaseActivity {
                 while (dataSnapshots.hasNext() )
                 {
                     DataSnapshot dataSnapshotChild = dataSnapshots.next();
-                    //Log.d(TAG,dataSnapshotChild.getValue().toString() );
+                    Log.d(TAG,dataSnapshotChild.getValue().toString() );
                     String ItemName= dataSnapshotChild.child("itemName").getValue().toString();
                     if(ItemName.equals(mSelectedItem))
                     {
@@ -265,10 +231,10 @@ public class ItemActivity extends BaseActivity {
             }
         });
 
-        Toast.makeText(ItemActivity.this, "thanks for purchasing" , Toast.LENGTH_LONG).show();
+       // Toast.makeText(ItemActivity.this, "thanks for purchasing" , Toast.LENGTH_LONG).show();
         FragmentManager fm = getSupportFragmentManager();
         BuyFragment dialogFragment = new BuyFragment();
-        dialogFragment.show(fm, "Sample Fragment");
+        dialogFragment.show(fm, " Thanks ");
     }
 
 }

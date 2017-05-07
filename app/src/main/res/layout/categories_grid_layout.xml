@@ -10,6 +10,7 @@
     android:padding="20dp"
     android:background="@color/colorPrimaryLight">
 
+
 <GridView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/Category_GridView"
     android:layout_width="match_parent"

@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.google.firebase.auth.FirebaseAuth;
 
 /**

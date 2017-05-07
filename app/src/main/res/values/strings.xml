@@ -63,6 +63,5 @@
     <string name="title_activity_chat">ChatActivity</string>
     <string name="send">SEND</string>
     <string name="chat">Chat</string>
-
-
+    <string name="sorry_no_item_item_found">Sorry! No item item found</string>
 </resources>

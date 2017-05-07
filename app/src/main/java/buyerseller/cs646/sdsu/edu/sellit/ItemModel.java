@@ -19,9 +19,8 @@ public class ItemModel {
 
     public ItemModel()
     {
-
+        // mandatory constructor
     }
-
 
     public ItemModel(String itemId, String itemName, String buyerId, String buyerName, String sellerId, String sellerName, String sellingCost, String itemTitle, String itemDescription, String imageUrl) {
         this.itemId = itemId;

@@ -5,10 +5,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-/**
- * Created by vk on 4/28/17.
- */
-
 public class CategoryItemSubItemActivity extends BaseActivity implements CategoryItemFragment.CategoryItemListener {
 
     private String mSelectedItem;
@@ -21,7 +17,6 @@ public class CategoryItemSubItemActivity extends BaseActivity implements Categor
         super.onCreate(savedInstanceState);
         setContentView(R.layout.category_item_subitem_layout);
         initalizeItems();
-
     }
 
     private void initalizeItems() {
@@ -38,14 +33,14 @@ public class CategoryItemSubItemActivity extends BaseActivity implements Categor
     @Override
     public void onCategoryItemSelect(String onSubItemSelected) {
 
-
         Log.d(TAG, "onSelectPosition "+ onSubItemSelected);
         mFragmentManager = getSupportFragmentManager();
         mFragmentTransaction = mFragmentManager.beginTransaction();
         CategorySubItemFragment mCategorySubItemFragment = new CategorySubItemFragment().newInstance(onSubItemSelected);
+
        //replacing subItems fragment at runtime
         mFragmentTransaction.replace(R.id.fragment_holder, mCategorySubItemFragment);
         mFragmentTransaction.commit();
-
     }
+
 }

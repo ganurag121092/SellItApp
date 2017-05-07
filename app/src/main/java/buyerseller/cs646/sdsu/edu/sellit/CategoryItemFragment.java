@@ -17,10 +17,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by vk on 4/28/17.
- */
-
 public class CategoryItemFragment extends ListFragment {
 
     private static final String TAG = "CategoryItemFragment";

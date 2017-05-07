@@ -1,9 +1,11 @@
 package buyerseller.cs646.sdsu.edu.sellit;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +45,7 @@ public class CategorySubItemFragment  extends Fragment {
 
     private View mRootView;
     private ListView mListView;
+    private TextView mNoItem;
     private Button mApply, mClear;
     private Spinner mPriceSpinner;
     private List<String>  mPriceList;
@@ -50,7 +54,6 @@ public class CategorySubItemFragment  extends Fragment {
     private FirebaseAuth firebaseAuth;
     FirebaseUser user;
     private String currentUser;
-
 
     public void CategorySubItemFragment (){
         // mandatory constructor
@@ -112,6 +115,8 @@ public class CategorySubItemFragment  extends Fragment {
         mApply=(Button) mRootView.findViewById(R.id.Apply);
         mClear=(Button) mRootView.findViewById(R.id.clear);
         mPriceSpinner =(Spinner)mRootView.findViewById(R.id.PriceSpinner);
+        mNoItem=(TextView) mRootView.findViewById(R.id.NoItemFound);
+        mNoItem.setVisibility(View.INVISIBLE);
         mItemList=new ArrayList<ItemModel>();
         mCategoryItemList= new ArrayList<>();
         return mRootView;
@@ -163,6 +168,7 @@ public class CategorySubItemFragment  extends Fragment {
         mClear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mNoItem.setVisibility(View.INVISIBLE);
                 populatePrice();
                 getItems(mDatabaseReference);
                 PriceMinimum =0;
@@ -220,7 +226,6 @@ public class CategorySubItemFragment  extends Fragment {
         });
     }
 
-
     public void getFilteresPriceItems(List<ItemModel> itemList)
     {
         Log.d(TAG, "getPrices  "+ PriceMinimum + PriceMaximum);
@@ -231,6 +236,15 @@ public class CategorySubItemFragment  extends Fragment {
                 mCategoryItemList.add(each.getItemName());
             }
         }
+        if(mCategoryItemList.size()==0)
+        {
+            mNoItem.setVisibility(View.VISIBLE);
+            //Toast toast = Toast.makeText(getActivity(), "Sorry! No item item found", Toast.LENGTH_LONG);
+            //toast.setGravity(Gravity.CENTER, 0, 0);
+            //toast.show();
+        }
+
+
         mArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, mCategoryItemList);
         mListView.setAdapter(mArrayAdapter);
         mArrayAdapter.notifyDataSetChanged();
@@ -256,8 +270,6 @@ public class CategorySubItemFragment  extends Fragment {
                  ItemModel mItemModel = dataSnapshotChild.getValue(ItemModel.class);
                  if((mItemModel.getBuyerId().equals(""))&&(mItemModel.getBuyerName().equals("")))
                  {
-                     Log.d(TAG, "insideeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-                     // String mCategoryName = dataSnapshotChild.child("itemName").getValue().toString();
                      String mCategoryName = mItemModel.getItemName();
                      mCategoryItemList.add(mCategoryName);
                      mArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, mCategoryItemList);

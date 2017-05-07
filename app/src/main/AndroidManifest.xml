@@ -32,7 +32,7 @@
         <activity android:name=".UserHelperActivity" />
         <activity android:name=".SellerActivity" />
         <activity android:name=".ItemActivity"
-            android:label="ITEM DETAILS"/>
+            android:label=" ITEM DETAILS "/>
         <activity android:name=".ChatActivity"/>
     </application>
 
