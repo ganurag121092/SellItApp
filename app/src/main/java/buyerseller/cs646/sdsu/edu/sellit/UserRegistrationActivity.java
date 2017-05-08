@@ -122,6 +122,14 @@ public class UserRegistrationActivity extends AppCompatActivity {
             mPhone.setError("Phone number Required");
             isValid = false;
         }
+
+        if(phone.length()!=10)
+        {
+            mPhone.setError("Please enter valid number");
+            isValid = false;
+        }
+
+
         if(TextUtils.isEmpty(selectedLat)|| TextUtils.isEmpty((selectedLon))){
             Toast.makeText(getBaseContext(), "Please Select Location", Toast.LENGTH_LONG).show();
             isValid = false;

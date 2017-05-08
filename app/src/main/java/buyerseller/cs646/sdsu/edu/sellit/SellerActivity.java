@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -273,6 +274,23 @@ public class SellerActivity extends BaseActivity {
             mItemPrice.setError("Selling Price Required");
             isValid = false;
         }
+
+        //limiting  itemDesc range
+        if(itemDesc.length()>120)
+        {
+            mItemDesc.setError("Description should be within 120character");
+            isValid = false;
+        }
+
+
+        //checking for price range
+        int price=Integer.valueOf(itemPrice);
+        if((price<=0)||(price>=10000))
+        {
+            mItemPrice.setError("Price ranges between 0-10000");
+            isValid = false;
+        }
+
         if(selectedCategory=="Select Category"){
             Toast.makeText(getBaseContext(), "Please Select Category", Toast.LENGTH_LONG).show();
             isValid = false;
@@ -303,6 +321,7 @@ public class SellerActivity extends BaseActivity {
             String itemKey = mDatabaseRef.push().getKey();
             itemModel.setItemId(itemKey);
             addItemToDB(itemModel);
+
         }
     }
 
@@ -351,6 +370,9 @@ public class SellerActivity extends BaseActivity {
                         }
                     });
 
+            FragmentManager fm = getSupportFragmentManager();
+            SellFragment dialogFragment = new SellFragment();
+            dialogFragment.show(fm, " Thanks for Posting ");
         }
         //if there is not any file
         else {

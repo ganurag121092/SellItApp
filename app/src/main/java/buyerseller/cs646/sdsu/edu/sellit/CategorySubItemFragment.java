@@ -260,6 +260,11 @@ public class CategorySubItemFragment  extends Fragment {
         @Override
           public void onDataChange(DataSnapshot dataSnapshot) {
           Iterator<DataSnapshot> dataSnapshots = dataSnapshot.getChildren().iterator();
+            Log.d(TAG, "children are " + dataSnapshot.getChildrenCount());
+            if (dataSnapshot.getChildrenCount()==0)
+            {
+                mNoItem.setVisibility(View.VISIBLE);
+            }
           if (dataSnapshot.getValue() != null) {
           while (dataSnapshots.hasNext() )
           {
@@ -272,12 +277,16 @@ public class CategorySubItemFragment  extends Fragment {
                  {
                      String mCategoryName = mItemModel.getItemName();
                      mCategoryItemList.add(mCategoryName);
-                     mArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, mCategoryItemList);
-                     mListView.setAdapter(mArrayAdapter);
                  }
-
              }
           }
+              if (mCategoryItemList.size()==0)
+              {
+                  mNoItem.setVisibility(View.VISIBLE);
+              }
+
+              mArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, mCategoryItemList);
+              mListView.setAdapter(mArrayAdapter);
         }
             else
             mDatabaseReference.removeEventListener(this);

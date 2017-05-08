@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="start"
+    android:background="@color/colorPrimary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:id="@+id/WelcomeSeller"
+        android:layout_marginTop="22dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:text="Item Posted successfully"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/PostItem"
+            android:layout_weight="1"
+            android:typeface="sans"
+            android:textStyle="normal|bold"
+            android:textSize="20sp"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/WelcomeSeller"
+        android:layout_alignParentEnd="true">
+
+        <Button
+            android:text="Home"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:id="@+id/Home"
+            android:layout_weight="1"
+            style="?actionBarTabBarStyle"/>
+
+        <Button
+            android:text="@string/signout"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:id="@+id/PostSignout"
+            style="?actionBarTabBarStyle"
+            android:layout_weight="1" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

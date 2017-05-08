@@ -79,7 +79,7 @@ public class BaseActivity extends AppCompatActivity {
                 }
                 return true;
             case R.id.Buymenu:
-                Intent buyerIntent = new Intent(this,CategoryActivity.class);
+                Intent buyerIntent = new Intent(this,MainActivity.class);
                 startActivity(buyerIntent);
                 return true;
             default:
