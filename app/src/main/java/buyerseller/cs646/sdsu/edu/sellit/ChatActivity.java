@@ -10,10 +10,12 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -68,10 +70,7 @@ public class ChatActivity extends BaseActivity {
         chatRecyclerView = (RecyclerView) this.findViewById(R.id.chats_recycler_view);
         mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setStackFromEnd(true);
-
-        /*chatRecyclerView.setLayoutManager(mLayoutManager);
-        chatRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        chatRecyclerView.setAdapter(chatListAdapter);*/
+        getMessageFromFirebase();
 
         databaseReference = FirebaseDatabase.getInstance().getReference().getRoot().child("Chats");
 
@@ -87,7 +86,7 @@ public class ChatActivity extends BaseActivity {
                 chat.receiverUid = sellerUid;
                 chat.message = message;
                 chat.timestamp = new Date();
-                if(chat.getMessage()!=null){
+                if(!TextUtils.isEmpty(chat.getMessage())){
                     Log.d(TAG, "typed message: " + message);
                     databaseReference.getRef().addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -104,14 +103,15 @@ public class ChatActivity extends BaseActivity {
                                         .child(chatRoomBA)
                                         .child(String.valueOf(dataFormat.format(chat.timestamp)))
                                         .setValue(chat);
+                                //inserFirstMsg(chat);
                             } else {
                                 Log.e(TAG, "sendMessageToFirebaseUser: success");
                                 databaseReference
                                         .child(chatRoomAB)
                                         .child(String.valueOf(dataFormat.format(chat.timestamp)))
                                         .setValue(chat);
-
-                            }
+                                getMessageFromFirebase();
+                                }
                         }
 
                         @Override
@@ -120,71 +120,90 @@ public class ChatActivity extends BaseActivity {
                         }
                     });
                     mMessage.setText("");
-                } else {
-                    //Toast.makeText(getActivity(), "Send Button pressed, Message is Empty", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(ChatActivity.this, "Send Button pressed, Message is Empty", Toast.LENGTH_SHORT).show();
                 }
                     }
                 });
+    }
 
-        if(databaseReference.child(chatRoomAB)!=null){
-            databaseReference.child(chatRoomAB).addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    onGetChild(dataSnapshot);
-                }
+    public void getMessageFromFirebase(){
+        databaseReference = FirebaseDatabase.getInstance().getReference().getRoot().child("Chats");
+        databaseReference
+                .getRef()
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChild(chatRoomAB)) {
+                            Log.e(TAG, "getMessageFromFirebaseUser: " + chatRoomAB + " exists");
+                            databaseReference.child(chatRoomAB).addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                    onGetChild(dataSnapshot);
+                                }
 
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    onGetChild(dataSnapshot);
-                }
+                                @Override
+                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                                    onGetChild(dataSnapshot);
+                                }
 
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                                @Override
+                                public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                }
+                                }
 
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                                @Override
+                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-                }
+                                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
-        }
-        else if(databaseReference.child(chatRoomBA)!=null) {
-            databaseReference.child(chatRoomBA).addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    onGetChild(dataSnapshot);
-                }
+                                }
+                            });
+                        }
+                        else if(dataSnapshot.hasChild(chatRoomBA)) {
+                            Log.e(TAG, "getMessageFromFirebaseUser: " + chatRoomBA + " exists");
+                            databaseReference.child(chatRoomBA).addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                    onGetChild(dataSnapshot);
+                                }
 
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    onGetChild(dataSnapshot);
-                }
+                                @Override
+                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                                    onGetChild(dataSnapshot);
+                                }
 
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                                @Override
+                                public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                }
+                                }
 
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                                @Override
+                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-                }
+                                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
-        }
-        else {
-            Log.e(TAG, "getMessageFromFirebaseUser: no such room available");
-        }
+                                }
+                            });
+                        }
+                        else {
+                            Log.e(TAG, "getMessageFromFirebaseUser: no such room available");
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Unable to get message
+                    }
+                });
     }
 
     private void onGetChild(DataSnapshot dataSnapshot){
@@ -196,6 +215,5 @@ public class ChatActivity extends BaseActivity {
         chatRecyclerView.setLayoutManager(mLayoutManager);
         chatRecyclerView.setItemAnimator(new DefaultItemAnimator());
         chatRecyclerView.setAdapter(chatListAdapter);
-
     }
 }
