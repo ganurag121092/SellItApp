@@ -103,15 +103,14 @@ public class UserRegistrationActivity extends AppCompatActivity {
         if(TextUtils.isEmpty(username)){
             mUsername.setError("Username Required");
         }
-        /*if(isUserExists(mUsername.getText().toString(), getBaseContext())){
-            //Toast.makeText(getBaseContext(), "Please Enter new Nickname", Toast.LENGTH_LONG).show();
-            mUsername.setError("Nickname Already Exists");
-            isValid = false;
-        }*/
-        if(password.length()<6){
-            mPassword.setError("Must be more than 5 characters");
-            isValid = false;
+
+        if(!TextUtils.isEmpty(password)){
+            if(password.length()<6){
+                mPassword.setError("Must be more than 5 characters");
+                isValid = false;
+            }
         }
+
         if(TextUtils.isEmpty(password)){
             //Toast.makeText(getBaseContext(), "Please Enter Password", Toast.LENGTH_LONG).show();
             mPassword.setError("Password Required");
@@ -191,9 +190,8 @@ public class UserRegistrationActivity extends AppCompatActivity {
                             clearFields();
                             Intent intent= new Intent(UserRegistrationActivity.this,UserLoginActivity.class);
                             startActivity(intent);
-                            //Toast.makeText(UserHelperActivity.this,"User Added in REALtimeDB",Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(UserRegistrationActivity.this,"Failed to Added in REALtimeDB",Toast.LENGTH_LONG).show();
+                            Toast.makeText(UserRegistrationActivity.this,"Failed to Added in Database",Toast.LENGTH_LONG).show();
                         }
                     }
                 });

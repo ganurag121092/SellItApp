@@ -55,12 +55,12 @@ public class UserMapFragment extends Fragment implements OnMapReadyCallback,Goog
         googleMap = map;
         //googleMap.setMyLocationEnabled(true);
         googleMap.setOnMapClickListener(this);
-        double latitude = 0.0;
-        double longitude = 0.0;
+        double latitude = 32.7157;
+        double longitude = -117.1611;
         Geocoder location = new Geocoder(getActivity().getBaseContext());
 
         try {
-            List<Address> state = location.getFromLocationName("San Diego, California,USA",3);
+            List<Address> state = location.getFromLocationName("San Diego,California,USA",3);
             for (Address stateLocation: state) {
                 if (stateLocation.hasLatitude())
                     latitude = stateLocation.getLatitude();

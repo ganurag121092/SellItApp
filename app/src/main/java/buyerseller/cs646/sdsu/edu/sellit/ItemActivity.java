@@ -31,16 +31,13 @@ public class ItemActivity extends BaseActivity {
 
     private String mSelectedItem,mSelectedParentItem;
     private DatabaseReference mDatabaseReference;
-    private TextView mItemDetails,mItemName,mItemNameFirebaseValue;
-    private TextView mItemPrice,mItemPriceFirebaseValue;
-    private TextView mItemDescFirebaseValue;
-    private TextView mSellerName,mSellerNameFirebaseValue;
+    private TextView mItemDetails,mItemName,mItemNameFirebaseValue,mItemPrice,mItemPriceFirebaseValue,mItemDescFirebaseValue,mSellerName,mSellerNameFirebaseValue;
     private ImageView mImageView;
     private static final String TAG ="ItemActivity";
-    private Button mBuy,mChat;
+    private Button mBuy,mChat, mLocate;
     private ImageButton mPhoneCall;
-    private String sellerName, sellerUId, buyerName, buyerUId;
-    private String mPhoneNumber;
+    private String sellerName, sellerUId, buyerName, buyerUId, sellerPhone;
+    private Double buyerLat, buyerLon, sellerLat, sellerLon;
     private FirebaseAuth firebaseAuth;
     private Context mContext;
     private static String loginName = "Guest";
@@ -63,6 +60,7 @@ public class ItemActivity extends BaseActivity {
         mSellerNameFirebaseValue=(TextView)findViewById(R.id.SellerNameFirebaseValue);
         mBuy=(Button) findViewById(R.id.buy_item);
         mChat=(Button) findViewById(R.id.buttonchat);
+        mLocate=(Button) findViewById(R.id.buttonLocate);
         mPhoneCall=(ImageButton) findViewById(R.id.ButtonCall);
         initalizeItems();
 
@@ -74,9 +72,10 @@ public class ItemActivity extends BaseActivity {
             Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
 
             String username = user.getEmail().substring(0,user.getEmail().length()-10);
-            buyerName = username.substring(0,1).toUpperCase()+username.substring(1);
             buyerUId = user.getUid();
             loginName = username.substring(0,1).toUpperCase()+username.substring(1);
+            buyerName = loginName;
+            getBuyerDetails(buyerName);
             mUserUID=user.getUid();
         } else {
             // User is signed out
@@ -100,6 +99,32 @@ public class ItemActivity extends BaseActivity {
             }
         });
 
+        mLocate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG,loginName);
+                if (loginName.equals("Guest"))
+                {
+                    Toast.makeText(ItemActivity.this, "Please login !!!" , Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Log.d(TAG, "BUYER" + buyerName);
+                    Log.d(TAG, "BUYER" + buyerLat);
+                    Log.d(TAG, "BUYER" + buyerLon);
+                    Log.d(TAG, "SELLER" + sellerName);
+                    Log.d(TAG, "SELLER" + sellerLat);
+                    Log.d(TAG, "SELLER" + sellerLon);
+                    Intent mIntent =new Intent(ItemActivity.this,LocateUserActivity.class);
+                    mIntent.putExtra("Buyer", buyerName);
+                    mIntent.putExtra("Seller", sellerName);
+                    mIntent.putExtra("BuyerLat", buyerLat);
+                    mIntent.putExtra("BuyerLon", buyerLon);
+                    mIntent.putExtra("SellerLat", sellerLat);
+                    mIntent.putExtra("SellerLon", sellerLon);
+                    startActivity(mIntent);
+                }
+            }
+        });
 
         mChat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,9 +150,9 @@ public class ItemActivity extends BaseActivity {
             public void onClick(View arg0)
             {
                 if(user!=null) {
-                    Log.d(TAG, mPhoneNumber);
+                    Log.d(TAG, sellerPhone);
                     Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                    callIntent.setData(Uri.parse("tel:" + mPhoneNumber));
+                    callIntent.setData(Uri.parse("tel:" + sellerPhone));
                     startActivity(callIntent);
                 }
                 else{
@@ -194,7 +219,28 @@ public class ItemActivity extends BaseActivity {
                     //Log.d(TAG,dataSnapshot.getValue().toString() );
                     UserModel mUsers = dataSnapshot.getValue(UserModel.class);
                     Log.d(TAG, mUsers.phone);
-                    mPhoneNumber=mUsers.phone;
+                    sellerPhone=mUsers.phone;
+                    sellerLat = mUsers.latitude;
+                    sellerLon = mUsers.longitude;
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(ItemActivity.this, "failed to bring the data" , Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void getBuyerDetails(String name)
+    {
+        FirebaseDatabase.getInstance().getReference().child("Users").child(name).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+
+                //Log.d(TAG,dataSnapshot.getValue().toString() );
+                UserModel buyer = dataSnapshot.getValue(UserModel.class);
+                buyerLat = buyer.latitude;
+                buyerLon = buyer.longitude;
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

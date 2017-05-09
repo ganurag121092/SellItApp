@@ -16,6 +16,7 @@ public class BaseActivity extends AppCompatActivity {
     private String TAG="BaseActivity";
     private FirebaseAuth firebaseAuth;
     private static String loginName = "Guest";
+    static String userUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class BaseActivity extends AppCompatActivity {
             Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
             String username = user.getEmail().substring(0,user.getEmail().length()-10);
             loginName = username.substring(0,1).toUpperCase()+username.substring(1);
+            userUid = user.getUid();
             //Toast.makeText(getBaseContext(), user.getEmail() +" is signed-in!!",Toast.LENGTH_LONG).show();
         } else {
             // User is signed out
@@ -44,11 +46,14 @@ public class BaseActivity extends AppCompatActivity {
         MenuItem menuItem = menu.findItem(R.id.hello);
         menuItem.setTitle("Hello, "+loginName);
         MenuItem signoutMenu = menu.findItem(R.id.signout);
+        MenuItem chatListMenu = menu.findItem(R.id.chatList);
         if(loginName == "Guest"){
             signoutMenu.setVisible(false);
+            chatListMenu.setVisible(false);
         }
         else{
             signoutMenu.setVisible(true);
+            chatListMenu.setVisible(true);
         }
         return true;
     }
@@ -81,6 +86,12 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.Buymenu:
                 Intent buyerIntent = new Intent(this,MainActivity.class);
                 startActivity(buyerIntent);
+                return true;
+            case R.id.chatList:
+                Intent chatListIntent = new Intent(this,ChatListActivity.class);
+                chatListIntent.putExtra("CurrentUser",loginName);
+                chatListIntent.putExtra("CurrentUserUid",userUid);
+                startActivity(chatListIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

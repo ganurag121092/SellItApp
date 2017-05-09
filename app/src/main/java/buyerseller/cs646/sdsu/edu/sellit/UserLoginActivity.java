@@ -80,9 +80,11 @@ public class UserLoginActivity extends AppCompatActivity {
             mPassword.setError("Password Required");
             isValid = false;
         }
-        if(password.length()<6){
-            mPassword.setError("Must be more than 5 characters");
-            isValid = false;
+        if(!TextUtils.isEmpty(password)){
+            if(password.length()<6){
+                mPassword.setError("Must be more than 5 characters");
+                isValid = false;
+            }
         }
 
         if(isValid){

@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/tools">
     <item android:id="@+id/Buymenu"
         android:title="@string/buy"
-        app:showAsAction="always|withText">
-    </item>
+        app:showAsAction="always|withText"/>
+
     <item android:id="@+id/Sellmenu"
         android:title="@string/sell"
-        app:showAsAction="always|withText">
-    </item>
+        app:showAsAction="always|withText"/>
+
     <item android:id="@+id/mode"
         android:icon="@drawable/common_google_signin_btn_icon_dark"
         android:title="@string/profile"
@@ -20,6 +20,10 @@
                     android:title="@string/hello_user"
                     app:showAsAction="ifRoom|withText">
                 </item>
+                <item android:id="@+id/chatList"
+                    android:title="@string/chat_list"
+                    app:showAsAction="ifRoom|withText">
+                    </item>
                 <item android:id="@+id/signout"
                     android:title="@string/signout"
                     app:showAsAction="ifRoom|withText">

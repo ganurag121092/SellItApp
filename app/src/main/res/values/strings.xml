@@ -64,4 +64,6 @@
     <string name="send">SEND</string>
     <string name="chat">Chat</string>
     <string name="sorry_no_item_item_found">Sorry! No item item found</string>
+    <string name="locate">LOCATE</string>
+    <string name="chat_list">Chat List</string>
 </resources>
