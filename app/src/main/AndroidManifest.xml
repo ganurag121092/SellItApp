@@ -35,7 +35,7 @@
             android:label=" ITEM DETAILS " />
         <activity android:name=".ChatActivity" />
         <activity android:name=".ChatListActivity" />
-        <activity android:name=".LocateUserActivity"></activity>
+        <activity android:name=".LocateUserActivity"/>
     </application>
 
 </manifest>
