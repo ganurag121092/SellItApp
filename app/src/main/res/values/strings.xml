@@ -66,4 +66,6 @@
     <string name="sorry_no_item_item_found">Sorry! No item item found</string>
     <string name="locate">LOCATE</string>
     <string name="chat_list">Chat List</string>
+    <string name="home">Home</string>
+    <string name="item_posted_successfully">Item Posted successfully</string>
 </resources>

@@ -60,7 +60,7 @@ public class CategoryActivity extends BaseActivity{
      mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,int position, long id)
             {
-                Toast.makeText(CategoryActivity.this, "Category selected " + position,Toast.LENGTH_SHORT).show();
+               // Toast.makeText(CategoryActivity.this, "Category selected " + position,Toast.LENGTH_SHORT).show();
                 String mItemSelected =  parent.getItemAtPosition(position).toString();
                 Intent mIntent = new Intent(CategoryActivity.this,CategoryItemSubItemActivity.class);
                 mIntent.putExtra("SelectedItem", mItemSelected);

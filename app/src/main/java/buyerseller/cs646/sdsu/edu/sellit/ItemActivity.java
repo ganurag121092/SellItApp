@@ -106,6 +106,8 @@ public class ItemActivity extends BaseActivity {
                 if (loginName.equals("Guest"))
                 {
                     Toast.makeText(ItemActivity.this, "Please login !!!" , Toast.LENGTH_LONG).show();
+                    Intent loginIntent = new Intent(ItemActivity.this,MainActivity.class);
+                    startActivity(loginIntent);
                 }
                 else {
                     Log.d(TAG, "BUYER" + buyerName);
@@ -141,6 +143,8 @@ public class ItemActivity extends BaseActivity {
                 }
                 else {
                     Toast.makeText(ItemActivity.this, "You Must Register First" , Toast.LENGTH_LONG).show();
+                    Intent loginIntent = new Intent(ItemActivity.this,MainActivity.class);
+                    startActivity(loginIntent);
                 }
             }
         });
@@ -157,6 +161,8 @@ public class ItemActivity extends BaseActivity {
                 }
                 else{
                     Toast.makeText(ItemActivity.this, "You Must Register First" , Toast.LENGTH_LONG).show();
+                    Intent loginIntent = new Intent(ItemActivity.this,MainActivity.class);
+                    startActivity(loginIntent);
                 }
             }
         });

@@ -84,8 +84,18 @@ public class BaseActivity extends AppCompatActivity {
                 }
                 return true;
             case R.id.Buymenu:
-                Intent buyerIntent = new Intent(this,MainActivity.class);
-                startActivity(buyerIntent);
+                FirebaseUser currentuser = firebaseAuth.getCurrentUser();
+                if(currentuser!=null){
+                    Intent sellerIntent = new Intent(this,CategoryActivity.class);
+                    startActivity(sellerIntent);
+                }
+                else {
+                    // User is not existant
+                    Log.d(TAG, "User must Register");
+                    FirebaseAuth.getInstance().signOut();
+                    Intent loginIntent = new Intent(this,MainActivity.class);
+                    startActivity(loginIntent);
+                }
                 return true;
             case R.id.chatList:
                 Intent chatListIntent = new Intent(this,ChatListActivity.class);
