@@ -284,7 +284,13 @@ public class SellerActivity extends BaseActivity {
 
 
         //checking for price range
-        int price=Integer.valueOf(itemPrice);
+        int price;
+        if(TextUtils.isEmpty(itemPrice)) {
+            price = 0;
+        }
+        else{
+            price = Integer.valueOf(itemPrice);
+        }
         if((price<=0)||(price>=10000))
         {
             mItemPrice.setError("Price ranges between 0-10000");
