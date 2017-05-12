@@ -161,7 +161,7 @@
             android:id="@+id/itemPriceText"
             android:inputType="number"
             android:ems="10"
-
+            android:maxLength="4"
             tools:ignore="LabelFor"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
             android:textSize="16sp">
