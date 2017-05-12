@@ -24,18 +24,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CategoryActivity" />
-        <activity android:name=".CategoryItemSubItemActivity" />
-        <activity android:name=".UserLoginActivity" />
-        <activity android:name=".UserRegistrationActivity" />
-        <activity android:name=".UserHelperActivity" />
-        <activity android:name=".SellerActivity" />
+        <activity android:name=".CategoryActivity"
+            android:label="Choose Category"/>
+        <activity android:name=".CategoryItemSubItemActivity"
+            android:label="Choose Sub-Category"/>
+        <activity android:name=".UserLoginActivity"
+            android:label="User Login"/>
+        <activity android:name=".UserRegistrationActivity"
+            android:label="Registration"/>
+        <activity android:name=".UserHelperActivity"/>
+        <activity android:name=".SellerActivity"
+            android:label="Post An Ad"/>
         <activity
             android:name=".ItemActivity"
-            android:label=" ITEM DETAILS " />
-        <activity android:name=".ChatActivity" />
-        <activity android:name=".ChatListActivity" />
-        <activity android:name=".LocateUserActivity"/>
+            android:label=" ITEM DETAILS" />
+        <activity android:name=".ChatActivity"/>
+        <activity android:name=".ChatListActivity"
+            android:label="Chat With User"/>
+        <activity android:name=".LocateUserActivity"
+            android:label="Locate User"/>
     </application>
 
 </manifest>

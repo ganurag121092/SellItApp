@@ -341,7 +341,7 @@ public class SellerActivity extends BaseActivity {
                             //hiding the progress dialog
                             //progressDialog.dismiss();
                             //and displaying a success toast
-                            Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
                             if(taskSnapshot!=null) {
                                 item.setImageUrl(taskSnapshot.getDownloadUrl().toString());
 

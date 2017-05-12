@@ -134,7 +134,7 @@ public class CategorySubItemFragment  extends Fragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "SubItem  selected " + position,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "SubItem  selected " + position,Toast.LENGTH_SHORT).show();
                 String mItemSelected =  parent.getItemAtPosition(position).toString();
                 Intent mIntent = new Intent(getActivity(),ItemActivity.class);
                 mIntent.putExtra("Item", mItemSelected);
@@ -148,7 +148,7 @@ public class CategorySubItemFragment  extends Fragment {
         mPriceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                Toast.makeText(getActivity(), "Price   selected " + position,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Price   selected " + position,Toast.LENGTH_SHORT).show();
                 mPriceSelected=adapterView.getItemAtPosition(position).toString();
                 if(!mPriceSelected.equals("none(selected)"))
                 {
